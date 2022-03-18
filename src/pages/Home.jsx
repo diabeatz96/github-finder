@@ -4,7 +4,6 @@ function Home(props) {
     return (
         <>
             {/*SEARCH RESULTS GO HERE */}
-            <h1 className='text-6xl'>Welcome</h1>
             <UserResults />
         </>
     );
