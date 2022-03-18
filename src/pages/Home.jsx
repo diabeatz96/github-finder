@@ -1,6 +1,6 @@
 import React from 'react';
 import UserResults from "../components/users/UserResults";
-function Home(props) {
+function Home() {
     return (
         <>
             {/*SEARCH RESULTS GO HERE */}
