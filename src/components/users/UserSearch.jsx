@@ -1,23 +1,30 @@
 import React from 'react';
 import {useState, useContext} from "react";
 import GitHubContext from "../../context/github/GitHubContext";
-
+import AlertContext from "../../context/alert/AlertContext";
+import {searchUsers} from "../../context/github/GitHubActions";
 
 function UserSearch() {
 
     const [text, setText] = useState('');
 
-    const {users, searchUsers, handleClear} = useContext(GitHubContext);
+    const {users, dispatch, handleClear} = useContext(GitHubContext);
+    const {setAlert} = useContext(AlertContext)
 
     const handleChange = (e) => setText(e.target.value);
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if(text === '') {
-            alert('Please Enter something')
+            setAlert('Please enter something', 'error')
         } else {
             // @todo - search users
-            searchUsers(text);
+            dispatch({type: 'SET_LOADING'})
+            const users = await searchUsers(text);
+            dispatch({
+                type: 'GET_USERS',
+                payload: users
+            })
             setText('');
         }
     }
